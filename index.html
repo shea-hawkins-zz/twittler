@@ -14,9 +14,14 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          var $user = $('<h1></h1>');
+          var $message = $('<h2></h2>');
+          $user.text(tweet.user).addClass("user");
+          $message.text(tweet.message).addClass("message");
+          $tweet.append($user);
+          $tweet.append($message);
           $tweet.addClass("tweet");
-          $tweet.appendTo($body);
+          $body.append($tweet);
           index -= 1;
         }
       });
