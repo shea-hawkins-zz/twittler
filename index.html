@@ -8,23 +8,27 @@
   </head>
   <body>
     <script>
+      function createTweet(tweet) {
+        var $tweet = $('<div></div>');
+        var $user = $('<h1></h1>');
+        var $message = $('<h2></h2>');
+        var $timestamp = $('<span></span>');
+        $user.text(tweet.user).addClass("user");
+        $message.text(tweet.message).addClass("message");
+        $timestamp.text(tweet.created_at).addClass("timestamp");
+        $tweet.append($user);
+        $tweet.append($message);
+        $tweet.append($timestamp);
+        $tweet.addClass("tweet");
+        return $tweet;
+      };
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
         Rx.Observable.from(streams.home).subscribe(
           function (tweet) {
-            var $tweet = $('<div></div>');
-            var $user = $('<h1></h1>');
-            var $message = $('<h2></h2>');
-            var $timestamp = $('<span></span>');
-            $user.text(tweet.user).addClass("user");
-            $message.text(tweet.message).addClass("message");
-            $timestamp.text(tweet.created_at).addClass("timestamp");
-            $tweet.append($user);
-            $tweet.append($message);
-            $tweet.append($timestamp);
-            $tweet.addClass("tweet");
-            $body.append($tweet);
+            var $jTweet = createTweet(tweet);
+            $body.append($jTweet);
           }
         );
       });
