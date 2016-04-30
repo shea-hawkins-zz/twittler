@@ -22,13 +22,30 @@
         $tweet.addClass("tweet");
         return $tweet;
       };
+      // Observable sequence that returns the tweet stream, most recent last.
+      var tweetStream = Rx.Observable.create(observer => {
+        var streamLength = streams.home.length;
+        setInterval(function() {
+          // Check the streamlength and compares against previous values.
+          // Updates the streamlength if necessary.
+          if (streams.home.length !== streamLength) {
+            for (var i = streamLength; i < streams.home.length; i++) {
+              observer.onNext(streams.home[i]);
+            }
+            streamLength = streams.home.length;
+          }
+        }, 1000);
+        streams.home.reverse().forEach(x => {
+          observer.onNext(x);
+        });
+      });
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-        Rx.Observable.from(streams.home).subscribe(
+        tweetStream.subscribe(
           function (tweet) {
             var $jTweet = createTweet(tweet);
-            $body.append($jTweet);
+            $body.prepend($jTweet);
           }
         );
       });
