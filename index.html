@@ -16,10 +16,13 @@
           var $tweet = $('<div></div>');
           var $user = $('<h1></h1>');
           var $message = $('<h2></h2>');
+          var $timestamp = $('<span></span>');
           $user.text(tweet.user).addClass("user");
           $message.text(tweet.message).addClass("message");
+          $timestamp.text(tweet.created_at).addClass("timestamp");
           $tweet.append($user);
           $tweet.append($message);
+          $tweet.append($timestamp);
           $tweet.addClass("tweet");
           $body.append($tweet);
           index -= 1;
