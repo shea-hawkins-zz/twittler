@@ -54,13 +54,20 @@
               sub.dispose();
               changePage($(this).text());
             });
-            $('body').prepend($jTweet);
+            $('.streamContainer').prepend($jTweet);
           }
         );
-      }
+      };
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
+        var $header = $('<h1></h1>');
+        $header.text("Twittler");
+        $header.addClass("title");
+        $body.prepend($header);
+        var $streamContainer = $('<div></div>');
+        $streamContainer.addClass('streamContainer');
+        $body.append($streamContainer);
         renderPage(streams.home);
       });
     </script>
