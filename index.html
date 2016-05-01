@@ -23,25 +23,28 @@
         return $tweet;
       };
       // Observable sequence that returns the tweet stream, most recent last.
-      var tweetStream = Rx.Observable.create(observer => {
-        var streamLength = streams.home.length;
-        setInterval(function() {
-          // Check the streamlength and compares against previous values.
-          // Updates the streamlength if necessary.
-          if (streams.home.length !== streamLength) {
-            for (var i = streamLength; i < streams.home.length; i++) {
-              observer.onNext(streams.home[i]);
+      function createStreamFromArray(array) {
+        return Rx.Observable.create(observer => {
+          var streamLength = array.length;
+          setInterval(function() {
+            // Check the streamlength and compares against previous values.
+            // Updates the streamlength if necessary.
+            if (array.length !== streamLength) {
+              for (var i = streamLength; i < array.length; i++) {
+                observer.onNext(streams.home[i]);
+              }
+              streamLength = array.length;
             }
-            streamLength = streams.home.length;
-          }
-        }, 1000);
-        streams.home.reverse().forEach(x => {
-          observer.onNext(x);
+          }, 1000);
+          array.reverse().forEach(x => {
+            observer.onNext(x);
+          });
         });
-      });
+      };
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
+        var tweetStream = createStreamFromArray(streams.home);
         tweetStream.subscribe(
           function (tweet) {
             var $jTweet = createTweet(tweet);
