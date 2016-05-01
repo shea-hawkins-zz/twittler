@@ -31,26 +31,37 @@
             // Updates the streamlength if necessary.
             if (array.length !== streamLength) {
               for (var i = streamLength; i < array.length; i++) {
-                observer.onNext(streams.home[i]);
+                observer.onNext(array[i]);
               }
               streamLength = array.length;
             }
-          }, 1000);
+          }, 4000);
           array.reverse().forEach(x => {
             observer.onNext(x);
           });
         });
       };
+      function changePage(user) {
+        $('.tweet').remove();
+        renderPage(streams.users[user]);
+      };
+      function renderPage(tweets) {
+        var tweetStream = createStreamFromArray(tweets);
+        var sub = tweetStream.subscribe(
+          function (tweet) {
+            var $jTweet = createTweet(tweet);
+            $jTweet.find(".user").click(function() {
+              sub.dispose();
+              changePage($(this).text());
+            });
+            $('body').prepend($jTweet);
+          }
+        );
+      }
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-        var tweetStream = createStreamFromArray(streams.home);
-        tweetStream.subscribe(
-          function (tweet) {
-            var $jTweet = createTweet(tweet);
-            $body.prepend($jTweet);
-          }
-        );
+        renderPage(streams.home);
       });
     </script>
   </body>
