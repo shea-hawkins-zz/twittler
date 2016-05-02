@@ -17,8 +17,8 @@
         $message.text(tweet.message).addClass("message");
         $timestamp.text(tweet.created_at).addClass("timestamp");
         $tweet.append($user);
-        $tweet.append($message);
         $tweet.append($timestamp);
+        $tweet.append($message);
         $tweet.addClass("tweet");
         return $tweet;
       };
