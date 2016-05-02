@@ -2,12 +2,50 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-color: #E3E3E3;
+}
+h1, span {
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+}
+h2 {
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+}
+.user {
+  margin: .1em;
+  font-size: 16px;
+  font-style: oblique;
+  font-weight: 900;
+}
+.message {
+  margin: .25em;
+}
+.timestamp {
+  position: absolute;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+  right: .2em;
+  top: .75em;
+  margin: .1em;
 }
 .tweet {
   width: 30em;
-  background-color: blue;
-  border-width: .5em;
-  border-color: black;
-  align-items: flex-start;
-  justify-content: center;
+  padding: .5em;
+  margin: .05em;
+  background-color: #F2F2F2;
+  border-radius: .2em .2em .2em .2em;
+  -moz-border-radius: .2em .2em .2em .2em;
+  -webkit-border-radius: .2em .2em .2em .2em;
+  border: .1em solid #C4C4C4;
+  position: relative;
 }
